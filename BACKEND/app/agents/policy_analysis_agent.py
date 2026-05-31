@@ -38,7 +38,7 @@ class PolicyAnalysisAgent:
         CRITICAL: Only extract information explicitly stated in the document. If something is not found, use null or empty array. Never invent policy details.
 
         DOCUMENT TEXT:
-        {extracted_text[:15000]}
+        {extracted_text}
         """
         return await llm_router.generate(
             system_prompt="You are a precise insurance policy analyst. Extract every detail accurately from the provided document text. Never hallucinate.",

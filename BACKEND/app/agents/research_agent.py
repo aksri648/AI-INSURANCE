@@ -20,24 +20,7 @@ class ResearchAgent:
         USER QUERY: {query}
 
         SEARCH RESULTS:
-        {results_text[:12000]}
-
-        Return a JSON with:
-        {{
-            "results": [
-                {{
-                    "title": "<result title>",
-                    "snippet": "<key information>",
-                    "url": "<source URL>",
-                    "relevance": "<high/medium/low>"
-                }}
-            ],
-            "answer": "<direct answer to the query if possible, or say information could not be verified>",
-            "summary": "<concise summary of findings>",
-            "key_findings": ["<list of key findings>"],
-            "sources": ["<list of source URLs>"],
-            "confidence": "<verified if from reliable sources, otherwise needs_review>"
-        }}
+        {results_text}
         """
         return await llm_router.generate(
             system_prompt="You are a thorough researcher. Only report what is found in search results. If information is unavailable, state that clearly.",
@@ -64,9 +47,7 @@ class ResearchAgent:
         Summarize these research findings about: {query}
 
         FINDINGS:
-        {context[:8000]}
-
-        Return JSON with summary, key_findings list, sources list, and confidence field.
+        {context}
         """
         return await llm_router.generate(
             system_prompt="Summarize research findings accurately.",

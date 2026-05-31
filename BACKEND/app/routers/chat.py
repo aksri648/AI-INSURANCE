@@ -69,7 +69,7 @@ BENEFITS:
 {benefits_context}
 
 DOCUMENT EXCERPTS:
-{context[:8000]}
+{context}
 
 CONVERSATION HISTORY:
 {history_text}

@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     clerk_webhook_secret: str = ""
 
     groq_api_key: str = ""
-    groq_model: str = "llama3-70b-8192"
+    groq_model: str = "llama-3.1-70b-versatile"
 
     tavily_api_key: Optional[str] = None
 

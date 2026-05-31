@@ -31,7 +31,7 @@ class LLMRouter:
         model: Optional[str] = None,
         temperature: float = 0.1,
         json_mode: bool = False,
-        max_tokens: int = 4096,
+        max_tokens: int = 8192,
     ) -> str:
         if not self.groq_api_key:
             raise ValueError("No LLM provider configured. Set GROQ_API_KEY.")

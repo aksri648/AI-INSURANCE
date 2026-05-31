@@ -21,7 +21,7 @@ services:
       - key: GROQ_API_KEY
         sync: false
       - key: GROQ_MODEL
-        value: llama3-70b-8192
+        value: llama-3.1-70b-versatile
       - key: TAVILY_API_KEY
         sync: false
       - key: CORS_ORIGINS
