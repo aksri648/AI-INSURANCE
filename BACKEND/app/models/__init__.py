@@ -71,7 +71,7 @@ class PolicyChunk(Base, TimestampMixin):
     policy_id = Column(UUID(as_uuid=True), ForeignKey("policies.id"), nullable=False, index=True)
     chunk_index = Column(Integer, nullable=False)
     content = Column(Text, nullable=False)
-    embedding = Column(Vector(768), nullable=True)
+    embedding = Column(Vector(384), nullable=True)
     metadata = Column(JSON, default=dict)
 
     policy = relationship("Policy", back_populates="chunks")
