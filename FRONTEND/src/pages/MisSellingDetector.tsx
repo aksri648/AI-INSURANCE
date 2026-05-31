@@ -10,7 +10,7 @@ export function MisSellingDetector() {
   const { getToken } = useAuth()
   const [selectedPolicy, setSelectedPolicy] = useState('')
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<Record<string, unknown> | null>(null)
+  const [result, setResult] = useState<any>(null)
 
   const checkMisSelling = async () => {
     if (!selectedPolicy) return

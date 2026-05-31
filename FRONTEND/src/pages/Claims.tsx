@@ -13,7 +13,7 @@ export function Claims() {
   const [claimType, setClaimType] = useState('')
   const [claimAmount, setClaimAmount] = useState('')
   const [description, setDescription] = useState('')
-  const [result, setResult] = useState<Record<string, unknown> | null>(null)
+  const [result, setResult] = useState<any>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,7 +26,7 @@ export function Claims() {
         claim_amount: claimAmount ? parseFloat(claimAmount) : undefined,
         description,
       })
-      setResult(res)
+      setResult(res as any)
     } catch (err) {
       console.error('Claim assessment failed:', err)
     }

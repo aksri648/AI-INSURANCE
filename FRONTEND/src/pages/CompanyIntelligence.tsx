@@ -8,7 +8,7 @@ export function CompanyIntelligence() {
   const { getToken } = useAuth()
   const [companyName, setCompanyName] = useState('')
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<Record<string, unknown> | null>(null)
+  const [result, setResult] = useState<any>(null)
   const [compareMode, setCompareMode] = useState(false)
   const [companies, setCompanies] = useState<string[]>(['', ''])
 
