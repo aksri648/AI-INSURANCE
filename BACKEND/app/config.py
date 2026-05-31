@@ -29,15 +29,6 @@ class Settings(BaseSettings):
     chunk_overlap: int = 64
     top_k_retrieval: int = 5
 
-    redis_url: str = "redis://localhost:6379/0"
-    celery_broker_url: str = "redis://localhost:6379/1"
-
-    storage_backend: str = "local"
-    s3_endpoint: Optional[str] = None
-    s3_access_key: Optional[str] = None
-    s3_secret_key: Optional[str] = None
-    s3_bucket: Optional[str] = None
-
     cors_origins: list[str] = ["http://localhost:5173", "http://localhost:3000"]
 
     log_level: str = "INFO"

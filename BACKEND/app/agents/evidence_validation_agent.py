@@ -1,18 +1,8 @@
-from crewai import Agent
 from app.services import llm_router
 import json
 
 
 class EvidenceValidationAgent:
-    def __init__(self):
-        self.agent = Agent(
-            role="Evidence Validator",
-            goal="Verify that every factual statement from AI agents can be traced to specific source evidence",
-            backstory="Expert in fact-checking and evidence verification with background in forensic document analysis.",
-            verbose=True,
-            allow_delegation=False,
-        )
-
     async def validate(self, claim: str, source_chunks: list[str]) -> dict:
         chunks_text = "\n\n".join([f"[Chunk {i+1}]: {c}" for i, c in enumerate(source_chunks)])
 

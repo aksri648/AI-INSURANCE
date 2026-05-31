@@ -1,17 +1,7 @@
-from crewai import Agent
 from app.services import llm_router
 
 
 class ClaimsAssessmentAgent:
-    def __init__(self):
-        self.agent = Agent(
-            role="Claims Assessment Specialist",
-            goal="Analyze claim readiness, coverage eligibility, and estimate possible claim payouts",
-            backstory="Senior insurance claims adjuster with 20 years experience evaluating claims across all insurance types.",
-            verbose=True,
-            allow_delegation=False,
-        )
-
     async def assess_claim(
         self, policy_data: dict, benefits: list[dict], claim_type: str, claim_amount: str, description: str
     ) -> str:

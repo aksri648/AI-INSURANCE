@@ -1,17 +1,7 @@
-from crewai import Agent
 from app.services import llm_router
 
 
 class InsuranceEducationAgent:
-    def __init__(self):
-        self.agent = Agent(
-            role="Insurance Education Specialist",
-            goal="Explain insurance concepts in simple, clear language that anyone can understand",
-            backstory="Experienced insurance educator who has taught thousands of people to understand their insurance policies and make informed decisions.",
-            verbose=True,
-            allow_delegation=False,
-        )
-
     async def explain(self, query: str, context: str = "", difficulty: str = "beginner") -> str:
         prompt = f"""
         Explain this insurance topic in simple, clear language.

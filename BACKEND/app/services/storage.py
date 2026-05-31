@@ -9,7 +9,6 @@ from loguru import logger
 
 class StorageService:
     def __init__(self):
-        self.backend = settings.storage_backend
         self.upload_dir = Path(settings.upload_dir)
         self.upload_dir.mkdir(parents=True, exist_ok=True)
 
@@ -46,8 +45,6 @@ class StorageService:
         return None
 
     async def get_public_url(self, file_path: str) -> str:
-        if self.backend == "s3":
-            return f"{settings.s3_endpoint}/{settings.s3_bucket}/{file_path}"
         return f"/api/files/{Path(file_path).name}"
 
 

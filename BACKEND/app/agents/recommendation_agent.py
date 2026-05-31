@@ -1,17 +1,7 @@
-from crewai import Agent
 from app.services import llm_router
 
 
 class RecommendationAgent:
-    def __init__(self):
-        self.agent = Agent(
-            role="Insurance Advisor",
-            goal="Generate personalized insurance recommendations based on complete user profile analysis",
-            backstory="Certified insurance advisor with expertise in matching insurance products to individual needs and financial situations.",
-            verbose=True,
-            allow_delegation=False,
-        )
-
     async def generate_recommendations(self, user_profile: dict, policies: list[dict]) -> str:
         profile_str = "\n".join(f"{k}: {v}" for k, v in user_profile.items())
         policies_str = ""

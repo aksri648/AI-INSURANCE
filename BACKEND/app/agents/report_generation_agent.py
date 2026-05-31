@@ -1,19 +1,9 @@
-from crewai import Agent
 from app.services import llm_router
 from app.services.report_engine import report_engine
 import json
 
 
 class ReportGenerationAgent:
-    def __init__(self):
-        self.agent = Agent(
-            role="Report Generation Specialist",
-            goal="Generate comprehensive, well-structured, evidence-based insurance analysis reports",
-            backstory="Expert technical writer specializing in insurance documentation with background in creating regulatory-compliant reports.",
-            verbose=True,
-            allow_delegation=False,
-        )
-
     async def generate_report(self, analysis_data: dict) -> str:
         prompt = f"""
         Generate a comprehensive insurance analysis report JSON that will be rendered as HTML.

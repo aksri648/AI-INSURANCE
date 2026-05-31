@@ -1,30 +1,7 @@
-from crewai import Agent
 from app.services import llm_router
 
 
 class PolicyAnalysisAgent:
-    def __init__(self):
-        self.agent = Agent(
-            role="Senior Insurance Policy Analyst",
-            goal="Extract and structure all policy details, benefits, coverage, exclusions, waiting periods, and conditions from insurance policy documents with 100% accuracy",
-            backstory="Expert in insurance policy analysis with 15+ years experience reading and interpreting complex insurance contracts across health, life, motor, home, and travel domains.",
-            verbose=True,
-            allow_delegation=False,
-            llm=self._create_llm(),
-        )
-
-    def _create_llm(self):
-        class CustomLLM:
-            def generate(self, prompt: str, **kwargs):
-                import asyncio
-                return asyncio.run(llm_router.generate(
-                    system_prompt="You are a precise insurance policy analyst. Extract every detail accurately. Never hallucinate policy terms.",
-                    user_prompt=prompt,
-                    temperature=0.05,
-                ))
-
-        return CustomLLM()
-
     async def analyze_policy(self, extracted_text: str) -> str:
         prompt = f"""
         Analyze this insurance policy document and extract ALL structured information.

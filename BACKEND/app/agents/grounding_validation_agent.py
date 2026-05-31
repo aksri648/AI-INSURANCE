@@ -1,18 +1,8 @@
-from crewai import Agent
 from app.services import llm_router
 import json
 
 
 class GroundingValidationAgent:
-    def __init__(self):
-        self.agent = Agent(
-            role="Grounding Validator",
-            goal="Ensure every statement in the final report has proper citations and verifiable sources",
-            backstory="Quality assurance specialist ensuring all AI-generated content meets strict evidence standards.",
-            verbose=True,
-            allow_delegation=False,
-        )
-
     async def validate_report(self, report_sections: dict, available_sources: list[str]) -> dict:
         sources_text = "\n".join([f"- {s}" for s in available_sources])
 

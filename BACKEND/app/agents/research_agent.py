@@ -1,19 +1,9 @@
-from crewai import Agent
 from app.services import llm_router
 from app.services.tavily import tavily_service
 from loguru import logger
 
 
 class ResearchAgent:
-    def __init__(self):
-        self.agent = Agent(
-            role="Insurance Research Specialist",
-            goal="Perform comprehensive external research on insurance topics, regulations, companies, and market trends",
-            backstory="Research analyst with access to multiple data sources for gathering accurate, up-to-date insurance information.",
-            verbose=True,
-            allow_delegation=False,
-        )
-
     async def research(self, query: str, max_results: int = 5, depth: str = "basic") -> str:
         search_results = await tavily_service.search(query, max_results=max_results, search_depth=depth)
 

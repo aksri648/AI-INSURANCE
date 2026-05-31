@@ -1,17 +1,7 @@
-from crewai import Agent
 from app.services import llm_router
 
 
 class MisSellingDetectionAgent:
-    def __init__(self):
-        self.agent = Agent(
-            role="Insurance Mis-Selling Investigator",
-            goal="Detect contradictions, misleading statements, hidden clauses, and potential mis-selling in insurance policies",
-            backstory="Former insurance ombudsman investigator specialized in detecting unfair practices, hidden terms, and mis-selling in insurance products.",
-            verbose=True,
-            allow_delegation=False,
-        )
-
     async def detect_mis_selling(self, policy_data: dict, extracted_text: str) -> str:
         prompt = f"""
         Analyze this insurance policy for potential mis-selling, misleading statements, hidden clauses, and unfair terms.

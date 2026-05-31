@@ -7,16 +7,16 @@ Evidence-Based Insurance Intelligence Platform
 ```
 ┌─────────────────────┐      ┌──────────────────────┐
 │   React 19 Frontend │─────▶│   FastAPI Backend     │
-│   Vite + Tailwind   │      │   CrewAI + pgvector   │
+│   Vite + Tailwind   │      │   pgvector            │
 │   Clerk Auth        │      │   Groq LLM            │
 └─────────────────────┘      └──────────┬───────────┘
                                         │
-                    ┌───────────────────┼───────────────────┐
-                    ▼                   ▼                   ▼
-            ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
-            │  PostgreSQL  │   │     Groq     │   │    Redis     │
-            │   + pgvector │   │   LLM API    │   │   Cache/Queue│
-            └──────────────┘   └──────────────┘   └──────────────┘
+                            ┌───────────┴───────────┐
+                            ▼                       ▼
+                    ┌──────────────┐        ┌──────────────┐
+                    │  PostgreSQL  │        │     Groq     │
+                    │   + pgvector │        │   LLM API    │
+                    └──────────────┘        └──────────────┘
 ```
 
 ## Prerequisites
@@ -36,7 +36,7 @@ cp BACKEND/.env.example BACKEND/.env
 # Edit BACKEND/.env with your API keys (GROQ_API_KEY, CLERK_API_KEY)
 
 # 2. Start infrastructure
-docker compose up -d postgres redis
+docker compose up -d postgres
 
 # 3. Start backend
 docker compose up -d backend

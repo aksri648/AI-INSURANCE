@@ -1,19 +1,9 @@
-from crewai import Agent
 from app.services import llm_router
 from app.services.tavily import tavily_service
 import json
 
 
 class CompanyIntelligenceAgent:
-    def __init__(self):
-        self.agent = Agent(
-            role="Insurance Company Intelligence Analyst",
-            goal="Research and analyze insurance companies' performance, trustworthiness, and market position",
-            backstory="Financial analyst specializing in insurance sector with expertise in IRDAI regulations and company performance metrics.",
-            verbose=True,
-            allow_delegation=False,
-        )
-
     async def analyze_company(self, company_name: str) -> str:
         search_results = await tavily_service.search_insurance_company(company_name)
 
