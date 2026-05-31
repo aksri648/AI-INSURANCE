@@ -23,7 +23,11 @@ import { LearningCenter } from '@/pages/LearningCenter'
 import { Settings } from '@/pages/Settings'
 import { InsuranceHealthCheck } from '@/pages/InsuranceHealthCheck'
 
-const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || ''
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!clerkPubKey) {
+  console.error('VITE_CLERK_PUBLISHABLE_KEY is not set in .env file')
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +40,23 @@ const queryClient = new QueryClient({
 })
 
 export default function App() {
+  if (!clerkPubKey) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center p-6">
+        <div className="glass-card p-8 max-w-md w-full text-center">
+          <h1 className="text-xl font-bold text-[#ff6b6b] mb-4">Configuration Error</h1>
+          <p className="text-[#9d9db0] mb-4">
+            VITE_CLERK_PUBLISHABLE_KEY is not configured.
+          </p>
+          <p className="text-sm text-[#5a5a6e]">
+            Please add your Clerk Publishable Key to the .env file in the FRONTEND directory.
+            You can get it from <a href="https://dashboard.clerk.com" className="text-[#1dd1a1]">https://dashboard.clerk.com</a>
+          </p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <ClerkProvider publishableKey={clerkPubKey}>
       <QueryClientProvider client={queryClient}>
