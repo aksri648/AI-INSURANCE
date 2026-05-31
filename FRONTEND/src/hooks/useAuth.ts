@@ -1,10 +1,10 @@
-import { useAuth, useUser } from '@clerk/clerk-react'
+import { useAuth as useClerkAuth, useUser } from '@clerk/clerk-react'
 import { useEffect, useState } from 'react'
 import { api } from '@/lib/api'
 import type { AuthUser } from '@/lib/clerk'
 
 export function useAuth() {
-  const { isSignedIn, isLoaded, getToken } = useAuth()
+  const { isSignedIn, isLoaded, getToken } = useClerkAuth()
   const { user: clerkUser } = useUser()
   const [user, setUser] = useState<AuthUser | null>(null)
   const [loading, setLoading] = useState(true)

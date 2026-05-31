@@ -81,13 +81,13 @@ export function MisSellingDetector() {
               </span>
             </div>
             {result.summary && (
-              <p className="text-sm text-[#9d9db0] mb-4">{result.summary as string}</p>
+              <p className="text-sm text-[#9d9db0] mb-4">{String(result.summary)}</p>
             )}
             {(result.findings as Record<string, unknown>[] || []).map((f, i) => (
               <div key={i} className={`p-3 rounded-lg mb-2 border ${severityColor(f.severity as string)}`}>
-                <p className="text-sm font-medium mb-1">{f.title as string}</p>
-                <p className="text-xs text-[#9d9db0]">{f.description as string}</p>
-                {f.evidence && <p className="text-xs text-[#5a5a6e] mt-1 italic">Evidence: {(f.evidence as string).slice(0, 200)}</p>}
+                <p className="text-sm font-medium mb-1">{String(f.title)}</p>
+                <p className="text-xs text-[#9d9db0]">{String(f.description)}</p>
+                {f.evidence && <p className="text-xs text-[#5a5a6e] mt-1 italic">Evidence: {String(f.evidence).slice(0, 200)}</p>}
               </div>
             ))}
             {(result.recommendations as string[] || []).length > 0 && (

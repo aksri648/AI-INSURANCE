@@ -84,17 +84,17 @@ export function Claims() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div className="glass-card p-4 text-center">
-                  <div className="text-2xl font-bold text-[#1dd1a1]">{result.eligibility_score ?? 'N/A'}%</div>
+                  <div className="text-2xl font-bold text-[#1dd1a1]">{String(result.eligibility_score ?? 'N/A')}%</div>
                   <div className="text-xs text-[#9d9db0]">Eligibility Score</div>
                 </div>
                 <div className="glass-card p-4 text-center">
-                  <div className="text-2xl font-bold text-[#4facfe]">{result.estimated_payout || 'N/A'}</div>
+                  <div className="text-2xl font-bold text-[#4facfe]">{String(result.estimated_payout || 'N/A')}</div>
                   <div className="text-xs text-[#9d9db0]">Estimated Payout</div>
                 </div>
               </div>
               {result.summary && (
                 <div className="p-3 rounded-lg bg-[#12121a] text-sm text-[#9d9db0]">
-                  {result.summary as string}
+                  {String(result.summary)}
                 </div>
               )}
               {(result.recommendations as string[] || []).length > 0 && (

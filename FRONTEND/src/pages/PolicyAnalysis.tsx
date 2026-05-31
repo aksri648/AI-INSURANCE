@@ -2,7 +2,6 @@ import { useParams, Link } from 'react-router-dom'
 import { usePolicy, useAnalyzePolicy } from '@/hooks/usePolicy'
 import { GlassCard } from '@/components/GlassCard'
 import { StatCard } from '@/components/StatCard'
-import { Badge } from '@/lib/utils'
 import { Shield, MessageSquare, AlertTriangle, CheckCircle, Clock, ArrowLeft, Zap } from 'lucide-react'
 
 export function PolicyAnalysis() {

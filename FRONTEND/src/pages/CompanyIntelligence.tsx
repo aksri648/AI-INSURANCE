@@ -91,30 +91,30 @@ export function CompanyIntelligence() {
             <div className="grid grid-cols-2 gap-3 mb-4">
               {result.claim_settlement_ratio && (
                 <div className="glass-card p-3 text-center">
-                  <div className="text-lg font-bold text-[#1dd1a1]">{result.claim_settlement_ratio as number}%</div>
+                  <div className="text-lg font-bold text-[#1dd1a1]">{String(result.claim_settlement_ratio)}%</div>
                   <div className="text-xs text-[#9d9db0]">Claim Settlement Ratio</div>
                 </div>
               )}
               {result.solvency_ratio && (
                 <div className="glass-card p-3 text-center">
-                  <div className="text-lg font-bold text-[#4facfe]">{result.solvency_ratio as number}%</div>
+                  <div className="text-lg font-bold text-[#4facfe]">{String(result.solvency_ratio)}%</div>
                   <div className="text-xs text-[#9d9db0]">Solvency Ratio</div>
                 </div>
               )}
               {result.trust_score && (
                 <div className="glass-card p-3 text-center">
-                  <div className="text-lg font-bold text-[#feca57]">{result.trust_score as number}/100</div>
+                  <div className="text-lg font-bold text-[#feca57]">{String(result.trust_score)}/100</div>
                   <div className="text-xs text-[#9d9db0]">Trust Score</div>
                 </div>
               )}
               {result.market_share && (
                 <div className="glass-card p-3 text-center">
-                  <div className="text-lg font-bold text-[#a855f7]">{result.market_share as number}%</div>
+                  <div className="text-lg font-bold text-[#a855f7]">{String(result.market_share)}%</div>
                   <div className="text-xs text-[#9d9db0]">Market Share</div>
                 </div>
               )}
             </div>
-            {result.summary && <p className="text-sm text-[#9d9db0]">{result.summary as string}</p>}
+            {result.summary && <p className="text-sm text-[#9d9db0]">{String(result.summary)}</p>}
             {(result.strengths as string[] || []).length > 0 && (
               <div className="mt-3">
                 <p className="text-xs font-medium text-[#1dd1a1] mb-1">Strengths</p>
