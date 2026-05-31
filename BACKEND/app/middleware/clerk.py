@@ -4,7 +4,6 @@ from app.config import settings
 from app.database import async_session
 from app.models import User
 from sqlalchemy import select
-import jwt
 import httpx
 from loguru import logger
 
@@ -18,31 +17,26 @@ async def verify_clerk_token(credentials: HTTPAuthorizationCredentials = Depends
     token = credentials.credentials
 
     try:
-        if settings.clerk_jwt_pub_key:
-            jwks_client = jwt.PyJWKClient(settings.clerk_jwt_pub_key)
-            signing_key = jwks_client.get_signing_key_from_jwt(token)
-            payload = jwt.decode(
-                token,
-                signing_key.key,
-                algorithms=["RS256"],
-                options={"verify_exp": True},
-            )
-            return payload
+        from clerk_backend_api import Clerk
+        from clerk_backend_api.security import authenticate_request
+        from clerk_backend_api.security.types import AuthenticateRequestOptions
 
-        async with httpx.AsyncClient() as client:
-            response = await client.get(
-                "https://api.clerk.com/v1/sessions/verify",
-                headers={"Authorization": f"Bearer {settings.clerk_api_key}"},
-                params={"token": token},
-            )
-            if response.status_code == 200:
-                return response.json()
-            raise HTTPException(status_code=401, detail="Invalid token")
+        sdk = Clerk(bearer_auth=settings.clerk_api_key)
 
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail="Token expired")
-    except jwt.InvalidTokenError as e:
-        raise HTTPException(status_code=401, detail=f"Invalid token: {str(e)}")
+        request_state = sdk.authenticate_request(
+            token,
+            AuthenticateRequestOptions(
+                authorized_parties=settings.cors_origins
+            )
+        )
+
+        if request_state.is_signed_in:
+            return request_state.payload or {}
+        else:
+            raise HTTPException(status_code=401, detail=f"Authentication failed: {request_state.reason}")
+
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Auth verification failed: {e}")
         raise HTTPException(status_code=401, detail="Authentication failed")
