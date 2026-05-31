@@ -4,13 +4,14 @@ import { GlassCard } from '@/components/GlassCard'
 import { api } from '@/lib/api'
 import { useAuth } from '@/hooks/useAuth'
 import { Scale, AlertTriangle, CheckCircle, Search, FileText } from 'lucide-react'
+import type { MisSellingResult } from '@/types'
 
 export function MisSellingDetector() {
   const { data: policies } = usePolicies()
   const { getToken } = useAuth()
   const [selectedPolicy, setSelectedPolicy] = useState('')
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<MisSellingResult | null>(null)
 
   const checkMisSelling = async () => {
     if (!selectedPolicy) return
@@ -19,7 +20,7 @@ export function MisSellingDetector() {
       const token = await getToken()
       if (token) api.setToken(token)
       const res = await api.post('/education/mis-selling-check', { policy_id: selectedPolicy })
-      setResult(res as Record<string, unknown>)
+      setResult(res as MisSellingResult)
     } catch (err) {
       console.error('Mis-selling check failed:', err)
     } finally {
@@ -83,18 +84,18 @@ export function MisSellingDetector() {
             {result.summary && (
               <p className="text-sm text-[#9d9db0] mb-4">{String(result.summary)}</p>
             )}
-            {(result.findings as Record<string, unknown>[] || []).map((f, i) => (
+            {((result.findings || []) as typeof result.findings).map((f, i) => (
               <div key={i} className={`p-3 rounded-lg mb-2 border ${severityColor(f.severity as string)}`}>
                 <p className="text-sm font-medium mb-1">{String(f.title)}</p>
                 <p className="text-xs text-[#9d9db0]">{String(f.description)}</p>
                 {f.evidence && <p className="text-xs text-[#5a5a6e] mt-1 italic">Evidence: {String(f.evidence).slice(0, 200)}</p>}
               </div>
             ))}
-            {(result.recommendations as string[] || []).length > 0 && (
+            {((result.recommendations || []) as string[]).length > 0 && (
               <div className="mt-4">
                 <p className="text-sm font-medium mb-2">Recommended Actions</p>
                 <ul className="space-y-1">
-                  {(result.recommendations as string[]).map((r, i) => (
+                  {((result.recommendations || []) as string[]).map((r, i) => (
                     <li key={i} className="text-sm text-[#9d9db0] flex items-start gap-2">
                       <CheckCircle className="w-3 h-3 text-[#1dd1a1] mt-1 shrink-0" />
                       {r}

@@ -4,6 +4,7 @@ import { useAssessClaim, useClaims } from '@/hooks/useClaims'
 import { GlassCard } from '@/components/GlassCard'
 import { StatCard } from '@/components/StatCard'
 import { Shield, CheckCircle, AlertTriangle, FileText, Clock } from 'lucide-react'
+import type { ClaimAssessment } from '@/types'
 
 export function Claims() {
   const { data: policies } = usePolicies()
@@ -13,7 +14,7 @@ export function Claims() {
   const [claimType, setClaimType] = useState('')
   const [claimAmount, setClaimAmount] = useState('')
   const [description, setDescription] = useState('')
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<ClaimAssessment | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,7 +27,7 @@ export function Claims() {
         claim_amount: claimAmount ? parseFloat(claimAmount) : undefined,
         description,
       })
-      setResult(res as any)
+      setResult(res as ClaimAssessment)
     } catch (err) {
       console.error('Claim assessment failed:', err)
     }
@@ -97,11 +98,11 @@ export function Claims() {
                   {String(result.summary)}
                 </div>
               )}
-              {(result.recommendations as string[] || []).length > 0 && (
+              {((result.recommendations || []) as string[]).length > 0 && (
                 <div>
                   <p className="text-sm font-medium mb-2">Recommendations</p>
                   <ul className="space-y-1">
-                    {(result.recommendations as string[]).map((r, i) => (
+                    {((result.recommendations || []) as string[]).map((r, i) => (
                       <li key={i} className="text-sm text-[#9d9db0] flex items-start gap-2">
                         <CheckCircle className="w-3 h-3 text-[#1dd1a1] mt-1 shrink-0" />
                         {r}

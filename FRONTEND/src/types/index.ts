@@ -68,6 +68,10 @@ export interface CompanyInfo {
   trust_score: number | null
   confidence: string
   sources: string[]
+  strengths?: string[]
+  weaknesses?: string[]
+  recommendations?: string[]
+  summary?: string
 }
 
 export interface EducationResult {

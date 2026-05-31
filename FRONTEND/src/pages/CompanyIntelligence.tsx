@@ -3,12 +3,13 @@ import { GlassCard } from '@/components/GlassCard'
 import { api } from '@/lib/api'
 import { useAuth } from '@/hooks/useAuth'
 import { Building2, Search, BarChart3, TrendingUp, Shield } from 'lucide-react'
+import type { CompanyInfo } from '@/types'
 
 export function CompanyIntelligence() {
   const { getToken } = useAuth()
   const [companyName, setCompanyName] = useState('')
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<CompanyInfo | null>(null)
   const [compareMode, setCompareMode] = useState(false)
   const [companies, setCompanies] = useState<string[]>(['', ''])
 
@@ -19,7 +20,7 @@ export function CompanyIntelligence() {
       const token = await getToken()
       if (token) api.setToken(token)
       const res = await api.post('/companies/search', { company_name: companyName })
-      setResult(res as Record<string, unknown>)
+      setResult(res as CompanyInfo)
     } catch (err) {
       console.error('Company search failed:', err)
     } finally {
@@ -35,7 +36,7 @@ export function CompanyIntelligence() {
       const token = await getToken()
       if (token) api.setToken(token)
       const res = await api.post('/companies/compare', { company_names: valid })
-      setResult(res as Record<string, unknown>)
+      setResult(res as CompanyInfo)
     } catch (err) {
       console.error('Comparison failed:', err)
     } finally {
@@ -115,13 +116,13 @@ export function CompanyIntelligence() {
               )}
             </div>
             {result.summary && <p className="text-sm text-[#9d9db0]">{String(result.summary)}</p>}
-            {(result.strengths as string[] || []).length > 0 && (
+            {((result.strengths || []) as string[]).length > 0 && (
               <div className="mt-3">
                 <p className="text-xs font-medium text-[#1dd1a1] mb-1">Strengths</p>
-                <ul className="space-y-1">{(result.strengths as string[]).map((s, i) => <li key={i} className="text-xs text-[#9d9db0]">• {s}</li>)}</ul>
+                <ul className="space-y-1">{((result.strengths || []) as string[]).map((s, i) => <li key={i} className="text-xs text-[#9d9db0]">• {s}</li>)}</ul>
               </div>
             )}
-            {(result.weaknesses as string[] || []).length > 0 && (
+            {((result.weaknesses || []) as string[]).length > 0 && (
               <div className="mt-3">
                 <p className="text-xs font-medium text-[#ff6b6b] mb-1">Weaknesses</p>
                 <ul className="space-y-1">{(result.weaknesses as string[]).map((w, i) => <li key={i} className="text-xs text-[#9d9db0]">• {w}</li>)}</ul>
