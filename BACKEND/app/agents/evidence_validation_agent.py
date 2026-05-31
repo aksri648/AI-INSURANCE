@@ -13,6 +13,16 @@ class EvidenceValidationAgent:
 
         SOURCE EVIDENCE:
         {chunks_text}
+
+        Return a JSON with:
+        {{
+            "is_supported": <true/false/partial>,
+            "confidence": "<verified/needs_review/not_found>",
+            "supporting_evidence": ["<exact quotes from source that support the claim>"],
+            "contradicting_evidence": ["<exact quotes from source that contradict the claim>"],
+            "explanation": "<brief explanation of validation result>",
+            "missing_elements": ["<parts of claim not found in sources>"]
+        }}
         """
         result = await llm_router.generate(
             system_prompt="You are a strict evidence validator. Only verify claims that have clear, direct support in the source evidence.",
