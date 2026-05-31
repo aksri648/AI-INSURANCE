@@ -28,6 +28,7 @@ BACKEND/logs/
 # Build
 FRONTEND/dist/
 FRONTEND/build/
+FRONTEND/tsconfig.tsbuildinfo
 
 # Database
 *.db

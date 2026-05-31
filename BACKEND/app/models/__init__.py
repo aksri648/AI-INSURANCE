@@ -72,7 +72,7 @@ class PolicyChunk(Base, TimestampMixin):
     chunk_index = Column(Integer, nullable=False)
     content = Column(Text, nullable=False)
     embedding = Column(Vector(384), nullable=True)
-    metadata = Column(JSON, default=dict)
+    chunk_metadata = Column(JSON, default=dict)
 
     policy = relationship("Policy", back_populates="chunks")
 
@@ -167,7 +167,7 @@ class Company(Base, TimestampMixin):
     ratings = Column(JSON, default=dict)
     solvency_ratio = Column(Float, nullable=True)
     irda_compliance = Column(String(255), nullable=True)
-    metadata = Column(JSON, default=dict)
+    company_metadata = Column(JSON, default=dict)
 
 
 class AuditLog(Base, TimestampMixin):

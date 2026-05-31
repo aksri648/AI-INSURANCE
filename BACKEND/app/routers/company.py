@@ -21,7 +21,7 @@ async def search_company(
         result = await session.execute(stmt)
         existing = result.scalar_one_or_none()
 
-    if existing and existing.metadata.get("last_updated_days", 99) < 7:
+    if existing and existing.company_metadata.get("last_updated_days", 99) < 7:
         return _company_to_response(existing)
 
     try:
@@ -38,7 +38,7 @@ async def search_company(
             company.market_share = data.get("market_share", company.market_share)
             company.ratings = data.get("ratings", company.ratings or {})
             company.irda_compliance = data.get("irda_compliance", company.irda_compliance)
-            company.metadata = {**company.metadata, "sources": data.get("sources", []), "last_updated_days": 0}
+            company.company_metadata = {**company.company_metadata, "sources": data.get("sources", []), "last_updated_days": 0}
 
             if not existing:
                 session.add(company)
@@ -96,5 +96,5 @@ def _company_to_response(company: Company) -> CompanyResponse:
         irda_compliance=company.irda_compliance,
         trust_score=None,
         confidence="verified",
-        sources=(company.metadata or {}).get("sources", []),
+        sources=(company.company_metadata or {}).get("sources", []),
     )

@@ -63,7 +63,7 @@ async def upload_policy(
                     chunk_index=chunk_data["chunk_index"],
                     content=chunk_data["content"],
                     embedding=chunk_data.get("embedding"),
-                    metadata=chunk_data.get("metadata", {}),
+                    chunk_metadata=chunk_data.get("metadata", {}),
                 )
                 session.add(chunk)
 

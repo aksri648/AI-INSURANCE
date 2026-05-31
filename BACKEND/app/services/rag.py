@@ -77,7 +77,7 @@ class RAGService:
                     "id": str(c.id),
                     "content": c.content,
                     "chunk_index": c.chunk_index,
-                    "metadata": c.metadata or {},
+                    "metadata": c.chunk_metadata or {},
                     "score": 0.0,
                 }
                 for c in chunks
